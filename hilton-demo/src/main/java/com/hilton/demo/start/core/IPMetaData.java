@@ -1,6 +1,9 @@
 package com.hilton.demo.start.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.security.auth.Subject;
@@ -10,44 +13,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.security.Principal;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
+@Table(name = "IPMetaData")
 @XmlRootElement
-@NamedQueries({
+@NamedNativeQuery(name = "findByIp",
+        query = "SELECT * from \"IPMetaData\" where ip = :ip", resultClass = IPMetaData.class)
 @NamedQuery(name = "IPMetaData.findByIp",
-        query = "SELECT i FROM IPMetaData i WHERE i.ip = :ip")})
-public class IPMetaData implements Principal, Serializable {
+        query = "SELECT i FROM IPMetaData i WHERE i.ip = :ip")
+public class IPMetaData implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private long id;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "ip")
     private String ip;
 
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public boolean implies(Subject subject) {
-        return Principal.super.implies(subject);
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getIp() {
-        return ip;
-    }
-
-    public void setIp(String ip) {
-        this.ip = ip;
-    }
 }

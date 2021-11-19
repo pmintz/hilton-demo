@@ -59,6 +59,9 @@ public class HiltonDemoApplication extends Application<HiltonDemoConfiguration> 
         // Create DAOs.
         final IPMetaDataDAO ipMetaDataDAO
                 = new IPMetaDataDAO(hibernateBundle.getSessionFactory());
+
+
+        // Register Resource
         environment.jersey().register(new IPMetaDataResource(ipMetaDataDAO));
 
 

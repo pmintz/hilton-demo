@@ -18,7 +18,8 @@
     </changeSet>
     <changeSet id="2" author="Scarpace">
         <insert tableName="IPMetaData">
-            <column name="ip" value="1"/>
+            <column name="id" value="2" />
+            <column name="ip" value="23"/>
         </insert>
     </changeSet>
 
