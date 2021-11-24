@@ -5,6 +5,8 @@ import io.dropwizard.hibernate.AbstractDAO;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.SessionStatistics;
+import javax.persistence.NamedNativeQuery;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -21,12 +23,14 @@ public class IPMetaDataDAO extends AbstractDAO<IPMetaData> {
     }
 
     public List<IPMetaData> findByIp(String ip) {
+
         List<IPMetaData> ll = currentSession().getNamedQuery("findByIp")
-                .setParameter("ip", ip).list();
+                .setParameter("query", ip).list();
         System.out.println("TRyiNg");
         for(IPMetaData i : ll){
             System.out.println(i.toString());
         }
+
 
         SessionStatistics ss = currentSession().getStatistics();
 
@@ -34,16 +38,16 @@ public class IPMetaDataDAO extends AbstractDAO<IPMetaData> {
        /* StringBuilder builder = new StringBuilder("%");
         builder.append(ip).append("%");*/
         System.out.println("ip: " + ip);
-        Query q = namedQuery("IPMetaData.findByIp");
+        Query q =  namedQuery("findByIp");
         System.out.println("Printing query");
         System.out.println(q.toString());
 
-        List l = q.setParameter("ip", ip).list();
+        List l = q.setParameter("query", ip).list();
         System.out.println("Attempting to print list");
         l.stream().forEach(x -> System.out.println(x.toString()));
          List<IPMetaData> list =  list(
-                namedQuery("IPMetaData.findByIp")
-                        .setParameter("ip", ip)
+                namedQuery("findByIp")
+                        .setParameter("query", ip)
         );
         System.out.println("printing list");
 
@@ -52,11 +56,18 @@ public class IPMetaDataDAO extends AbstractDAO<IPMetaData> {
          for(IPMetaData i : list) {
              System.out.println(i.toString());
          }
+
+       Query query =
+               currentSession().getNamedQuery("findByIp").setParameter("query", ip) ;
+
+        List<IPMetaData> lastList = query.list();
+        System.out.println(lastList.toString());
+
         return null;
     }
 
     public Optional<IPMetaData> findById() {
-         Optional<IPMetaData> i = Optional.ofNullable(get(2));
+         Optional<IPMetaData> i = Optional.ofNullable(get((long)2));
          System.out.println("Is Present: " + i.isPresent());
         return null;
     }

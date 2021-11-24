@@ -11,15 +11,39 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="ip" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="queryString" type="varchar(255)"/>
+            <column name="status" type="varchar(255)"/>
+            <column name="country" type="varchar(255)"/>
+            <column name="countryCode" type="varchar(255)"/>
+            <column name="region" type="varchar(255)"/>
+            <column name="regionName" type="varchar(255)"/>
+            <column name="city" type="varchar(255)"/>
+            <column name="zip" type="varchar(255)"/>
+            <column name="lat" type="varchar(255)"/>
+            <column name="lon" type="varchar(255)"/>
+            <column name="timezone" type="varchar(255)"/>
+            <column name="isp" type="varchar(255)"/>
+            <column name="org" type="varchar(255)"/>
+            <column name="asn" type="varchar(255)"/>
         </createTable>
     </changeSet>
     <changeSet id="2" author="Scarpace">
         <insert tableName="IPMetaData">
             <column name="id" value="2" />
-            <column name="ip" value="23"/>
+            <column name="queryString" value="127.0.0.1"/>
+            <column name="status" value="success"/>
+            <column name="country" value="US"/>
+            <column name="countryCode" value="US"/>
+            <column name="region" value="NE"/>
+            <column name="regionName" value="NorthEast"/>
+            <column name="city" value="Clifton Park"/>
+            <column name="zip" value="12065"/>
+            <column name="lat" value="123.123"/>
+            <column name="lon" value="123.123"/>
+            <column name="timezone" value="Eastern"/>
+            <column name="isp" value="Spectrum"/>
+            <column name="org" value="Hilton"/>
+            <column name="asn" value="Amazon"/>
         </insert>
     </changeSet>
 
