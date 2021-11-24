@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.security.Principal;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.NamedNativeQuery;
@@ -35,7 +36,7 @@ public class IPMetaData implements Serializable {
     private long id;
     @JsonProperty
     @Column(name = "queryString")
-    private String queryString;
+    private String query;
     @JsonProperty
     private String status;
     @JsonProperty
@@ -51,9 +52,9 @@ public class IPMetaData implements Serializable {
     @JsonProperty
     private String zip;
     @JsonProperty
-    private String lat;
+    private BigDecimal lat;
     @JsonProperty
-    private String lon;
+    private BigDecimal lon;
     @JsonProperty
     private String timezone;
     @JsonProperty

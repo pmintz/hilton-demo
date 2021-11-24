@@ -2,6 +2,7 @@ package com.hilton.demo.start;
 
 import io.dropwizard.Configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.dropwizard.client.HttpClientConfiguration;
 import io.dropwizard.db.DataSourceFactory;
 import org.hibernate.validator.constraints.*;
 
@@ -13,6 +14,10 @@ public class HiltonDemoConfiguration extends Configuration {
     @NotNull
     private DataSourceFactory database = new DataSourceFactory();
 
+    @Valid
+    @NotNull
+    private HttpClientConfiguration httpClient = new HttpClientConfiguration();
+
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory){
         this.database = factory;
@@ -21,5 +26,15 @@ public class HiltonDemoConfiguration extends Configuration {
     @JsonProperty("database")
     public DataSourceFactory getDataSourceFactory(){
         return database;
+    }
+
+    @JsonProperty("httpClient")
+    public HttpClientConfiguration getHttpClientConfiguration() {
+        return httpClient;
+    }
+
+    @JsonProperty("httpClient")
+    public void setHttpClientConfiguration(HttpClientConfiguration httpClient) {
+        this.httpClient = httpClient;
     }
 }

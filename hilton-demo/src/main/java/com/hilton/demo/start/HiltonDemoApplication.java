@@ -4,11 +4,13 @@ import com.hilton.demo.start.core.IPMetaData;
 import com.hilton.demo.start.db.IPMetaDataDAO;
 import com.hilton.demo.start.resources.IPMetaDataResource;
 import io.dropwizard.Application;
+import io.dropwizard.client.HttpClientBuilder;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.migrations.MigrationsBundle;
+import org.apache.http.client.HttpClient;
 
 public class HiltonDemoApplication extends Application<HiltonDemoConfiguration> {
 
@@ -59,10 +61,16 @@ public class HiltonDemoApplication extends Application<HiltonDemoConfiguration> 
         // Create DAOs.
         final IPMetaDataDAO ipMetaDataDAO
                 = new IPMetaDataDAO(hibernateBundle.getSessionFactory());
+        //create http client
+        final HttpClient httpClient = new HttpClientBuilder(environment).using(configuration
+                        .getHttpClientConfiguration())
+                .build(getName());
+
 
 
         // Register Resource
-        environment.jersey().register(new IPMetaDataResource(ipMetaDataDAO));
+        environment.jersey().register(new IPMetaDataResource(ipMetaDataDAO, httpClient));
+        environment.jersey().register(new IPMetaDataResource(ipMetaDataDAO, httpClient));
 
 
     }

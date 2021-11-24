@@ -19,8 +19,8 @@
             <column name="regionName" type="varchar(255)"/>
             <column name="city" type="varchar(255)"/>
             <column name="zip" type="varchar(255)"/>
-            <column name="lat" type="varchar(255)"/>
-            <column name="lon" type="varchar(255)"/>
+            <column name="lat" type="decimal"/>
+            <column name="lon" type="decimal"/>
             <column name="timezone" type="varchar(255)"/>
             <column name="isp" type="varchar(255)"/>
             <column name="org" type="varchar(255)"/>
