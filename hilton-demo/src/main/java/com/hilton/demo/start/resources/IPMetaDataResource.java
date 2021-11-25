@@ -17,6 +17,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.util.List;
 
 @Path("/IP")
 public class IPMetaDataResource {
@@ -35,44 +36,60 @@ public class IPMetaDataResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @UnitOfWork
-   public Response getIPMetaData(@QueryParam("ip") String ip) {
+    public Response getIPMetaData(@QueryParam("ip") String ip) {
 
-        HttpUriRequest httpUriRequest = new HttpGet("http://ip-api.com/json/" + ip);
-        HttpResponse httpResponse = null;
-        try {
-            httpResponse = client.execute(httpUriRequest);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        HttpEntity httpEntity =  httpResponse.getEntity();
-        String jsonString = null;
-        try {
-            jsonString = EntityUtils.toString(httpEntity);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("++++++++++");
-        System.out.println(jsonString);
-        IPMetaData ipMetaData= null;
-        try {
-            ipMetaData = objectMapper
-                    .readValue(jsonString, IPMetaData.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("---------");
-        System.out.println(ipMetaData.toString());
-       return Response.ok().entity(ipMetaData).build();
+        List<IPMetaData> ipMetaDataList = ipMetaDataDAO.findByIp(ip);
+        if (!ipMetaDataList.isEmpty()) {
+            return Response.ok().entity(ipMetaDataDAO.findByIp(ip)).build();
+        } else {
+            HttpUriRequest httpUriRequest = new HttpGet("http://ip-api.com/json/" + ip);
+            HttpEntity httpEntity = null;
+            String jsonString = null;
+            IPMetaData ipMetaData = null;
+            try {
+                HttpResponse httpResponse = client.execute(httpUriRequest);
+                httpEntity = httpResponse.getEntity();
+                jsonString = EntityUtils.toString(httpEntity);
+                ipMetaData = objectMapper
+                        .readValue(jsonString, IPMetaData.class);
+                System.out.println("Saving new object to database...");
+                System.out.println(ipMetaData);
+                ipMetaData = ipMetaDataDAO.save(ipMetaData);
+                System.out.println("Object is - " + ipMetaData.toString());
 
-       //return Response.ok().entity(ipMetaDataDAO.findByIp(ip)).build();
-   }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
+            return Response.ok().entity(ipMetaData).build();
+
+            //String jsonString = null;
+            //try {
+            //jsonString = EntityUtils.toString(httpEntity);
+            //} catch (IOException e) {
+            //e.printStackTrace();
+            //}
+            //System.out.println("++++++++++");
+            //System.out.println(jsonString);
+            //IPMetaData ipMetaData= null;
+            //try {
+
+            //} catch (IOException e) {
+            //e.printStackTrace();
+            //}
+            //System.out.println("---------");
+            //System.out.println(ipMetaData.toString());
+
+
+            //return Response.ok().entity(ipMetaDataDAO.findByIp(ip)).build();
+        }
+    }
     @GET
     @Path("/MetaData/test")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @UnitOfWork
-    public Response getIPMetaData(){
+    public Response getIPMetaData () {
         return Response.ok().entity(ipMetaDataDAO.findById()).build();
     }
 }

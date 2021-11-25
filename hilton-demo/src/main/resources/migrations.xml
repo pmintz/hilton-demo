@@ -7,16 +7,15 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="1" author="Scarpace">
-        <createTable tableName="IPMetaData">
-            <column name="id" type="bigint" autoIncrement="true">
+        <createTable tableName="ipmetadata">
+            <column name="querystring" type="varchar(255)">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="queryString" type="varchar(255)"/>
             <column name="status" type="varchar(255)"/>
             <column name="country" type="varchar(255)"/>
-            <column name="countryCode" type="varchar(255)"/>
+            <column name="countrycode" type="varchar(255)"/>
             <column name="region" type="varchar(255)"/>
-            <column name="regionName" type="varchar(255)"/>
+            <column name="regionname" type="varchar(255)"/>
             <column name="city" type="varchar(255)"/>
             <column name="zip" type="varchar(255)"/>
             <column name="lat" type="decimal"/>
@@ -27,15 +26,14 @@
             <column name="asn" type="varchar(255)"/>
         </createTable>
     </changeSet>
-    <changeSet id="2" author="Scarpace">
-        <insert tableName="IPMetaData">
-            <column name="id" value="2" />
-            <column name="queryString" value="127.0.0.1"/>
+    <changeSet id="3" author="Scarpace">
+        <insert tableName="ipmetadata">
+            <column name="querystring" value="127.0.0.1"/>
             <column name="status" value="success"/>
             <column name="country" value="US"/>
-            <column name="countryCode" value="US"/>
+            <column name="countrycode" value="US"/>
             <column name="region" value="NE"/>
-            <column name="regionName" value="NorthEast"/>
+            <column name="regionname" value="NorthEast"/>
             <column name="city" value="Clifton Park"/>
             <column name="zip" value="12065"/>
             <column name="lat" value="123.123"/>
@@ -46,5 +44,9 @@
             <column name="asn" value="Amazon"/>
         </insert>
     </changeSet>
+
+
+
+
 
 </databaseChangeLog>

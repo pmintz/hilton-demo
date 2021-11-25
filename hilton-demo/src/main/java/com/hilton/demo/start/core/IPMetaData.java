@@ -18,24 +18,24 @@ import java.math.BigDecimal;
 import java.security.Principal;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.NamedNativeQuery;
+import org.hibernate.annotations.Parameter;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "IPMetaData")
+@Entity(name = "ipmetadata")
+@Table(name = "ipmetadata")
 @XmlRootElement
 @NamedNativeQuery(name = "findByIp",
-        query = "SELECT * from \"IPMetaData\" where \"queryString\" =  :query ", resultClass = IPMetaData.class)
+        query = "SELECT * from \"ipmetadata\" where \"querystring\" =  :query ", resultClass = IPMetaData.class)
 public class IPMetaData implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private long id;
+    @Column(name = "querystring")
     @JsonProperty
-    @Column(name = "queryString")
     private String query;
     @JsonProperty
     private String status;
