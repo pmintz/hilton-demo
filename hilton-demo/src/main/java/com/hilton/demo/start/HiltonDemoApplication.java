@@ -11,8 +11,13 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.dropwizard.migrations.MigrationsBundle;
 import org.apache.http.client.HttpClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class HiltonDemoApplication extends Application<HiltonDemoConfiguration> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HiltonDemoApplication.class);
 
     /**
      * Create Hibernate bundle.
@@ -38,6 +43,8 @@ public class HiltonDemoApplication extends Application<HiltonDemoConfiguration> 
 
     @Override
     public void initialize(final Bootstrap<HiltonDemoConfiguration> bootstrap) {
+
+        LOGGER.info("Initializing application");
         /**
          * Adding Hibernate bundle.
          */
@@ -45,6 +52,7 @@ public class HiltonDemoApplication extends Application<HiltonDemoConfiguration> 
         /**
          * Adding migrations bundle.
          */
+        LOGGER.info("Bootstrapping hibernate bundle completed");
         bootstrap.addBundle(
                 new MigrationsBundle<HiltonDemoConfiguration>() {
                     @Override
@@ -53,6 +61,7 @@ public class HiltonDemoApplication extends Application<HiltonDemoConfiguration> 
                         return configuration.getDataSourceFactory();
                     }
                 });
+        LOGGER.info("Bootstrapping DataSourceFactory bundle");
     }
 
     @Override
@@ -64,13 +73,13 @@ public class HiltonDemoApplication extends Application<HiltonDemoConfiguration> 
         //create http client
         final HttpClient httpClient = new HttpClientBuilder(environment).using(configuration
                         .getHttpClientConfiguration())
-                .build(getName());
+                .build("http-client");
 
 
 
         // Register Resource
         environment.jersey().register(new IPMetaDataResource(ipMetaDataDAO, httpClient));
-        environment.jersey().register(new IPMetaDataResource(ipMetaDataDAO, httpClient));
+       // environment.jersey().register(new IPMetaDataResource(ipMetaDataDAO, httpClient));
 
 
     }

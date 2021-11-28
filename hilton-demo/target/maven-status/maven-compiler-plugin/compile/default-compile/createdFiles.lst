@@ -1,7 +1,9 @@
 com\hilton\demo\start\HiltonDemoApplication$2.class
+com\hilton\demo\start\resources\IPMetaDataResource$1.class
 com\hilton\demo\start\HiltonDemoConfiguration.class
 com\hilton\demo\start\core\IPMetaData.class
 com\hilton\demo\start\db\IPMetaDataDAO.class
 com\hilton\demo\start\resources\IPMetaDataResource.class
+com\hilton\demo\start\test\IPMetaDataIntegrationTest.class
 com\hilton\demo\start\HiltonDemoApplication$1.class
 com\hilton\demo\start\HiltonDemoApplication.class

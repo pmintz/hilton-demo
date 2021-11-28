@@ -10,12 +10,12 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 public class HiltonDemoConfiguration extends Configuration {
-    @Valid
-    @NotNull
+    //@Valid
+    //@NotNull
     private DataSourceFactory database = new DataSourceFactory();
 
-    @Valid
-    @NotNull
+    //@Valid
+    //@NotNull
     private HttpClientConfiguration httpClient = new HttpClientConfiguration();
 
     @JsonProperty("database")

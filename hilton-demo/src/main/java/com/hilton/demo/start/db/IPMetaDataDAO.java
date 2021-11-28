@@ -6,6 +6,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.stat.SessionStatistics;
 import javax.persistence.NamedNativeQuery;
+import org.hibernate.SessionFactory.*;
 
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class IPMetaDataDAO extends AbstractDAO<IPMetaData> {
         super(sessionFactory);
     }
 
-    public List<IPMetaData> findByIp(String ip) {
+    public IPMetaData findByIp(String ip) {
 
         /*List<IPMetaData> ll = currentSession().getNamedQuery("findByIp")
                 .setParameter("query", ip).list();
@@ -45,17 +46,24 @@ public class IPMetaDataDAO extends AbstractDAO<IPMetaData> {
         /*List l = q.setParameter("query", ip).list();
         System.out.println("Attempting to print list");
         l.stream().forEach(x -> System.out.println(x.toString()));*/
-         List<IPMetaData> list =  list(
+        Query a =
                 namedQuery("findByIp")
-                        .setParameter("query", ip)
-        );
-        System.out.println("printing list");
+                        .setParameter("query", ip);
+        //System.out.println("printing list");
 
-         System.out.println(list.toString());
+         //System.out.println(list.toString());
 
-         for(IPMetaData i : list) {
-             System.out.println(i.toString());
-         }
+         //for(IPMetaData i : list) {
+             //System.out.println(i.toString());
+         //}
+
+        /*Query q = namedQuery("findByIp")
+                .setParameter("query", ip);
+
+         IPMetaData ipMetaData = currentSession().get(IPMetaData.class, ip);
+         System.out.println("Printing single object");
+         System.out.println(ipMetaData.toString());
+         System.out.println("Finished");*/
 
        /*Query query =
                currentSession().getNamedQuery("findByIp").setParameter("query", ip) ;
@@ -63,7 +71,9 @@ public class IPMetaDataDAO extends AbstractDAO<IPMetaData> {
         List<IPMetaData> lastList = query.list();
         System.out.println(lastList.toString());*/
 
-        return list;
+        //currentSession().get(IPMetaData.class, ip);
+
+        return (IPMetaData) a.uniqueResult();
     }
 
     public Optional<IPMetaData> findById() {

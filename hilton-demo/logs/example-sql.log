@@ -1,0 +1,11 @@
+DEBUG [2021-11-27 07:20:24,240] org.hibernate.SQL: drop table ipmetadata if exists
+DEBUG [2021-11-27 07:20:24,244] org.hibernate.SQL: create table ipmetadata (querystring varchar(255) not null, asn varchar(255), city varchar(255), country varchar(255), countryCode varchar(255), isp varchar(255), lat decimal(19,2), lon decimal(19,2), org varchar(255), region varchar(255), regionName varchar(255), status varchar(255), timezone varchar(255), zip varchar(255), primary key (querystring))
+DEBUG [2021-11-28 02:03:38,684] org.hibernate.SQL: drop table ipmetadata if exists
+DEBUG [2021-11-28 02:03:38,689] org.hibernate.SQL: create table ipmetadata (querystring varchar(255) not null, asn varchar(255), city varchar(255), country varchar(255), countryCode varchar(255), isp varchar(255), lat decimal(19,2), lon decimal(19,2), org varchar(255), region varchar(255), regionName varchar(255), status varchar(255), timezone varchar(255), zip varchar(255), primary key (querystring))
+DEBUG [2021-11-28 02:07:05,887] org.hibernate.SQL: drop table ipmetadata if exists
+DEBUG [2021-11-28 02:07:05,891] org.hibernate.SQL: create table ipmetadata (querystring varchar(255) not null, asn varchar(255), city varchar(255), country varchar(255), countryCode varchar(255), isp varchar(255), lat decimal(19,2), lon decimal(19,2), org varchar(255), region varchar(255), regionName varchar(255), status varchar(255), timezone varchar(255), zip varchar(255), primary key (querystring))
+DEBUG [2021-11-28 02:10:51,880] org.hibernate.SQL: drop table ipmetadata if exists
+DEBUG [2021-11-28 02:10:51,885] org.hibernate.SQL: create table ipmetadata (querystring varchar(255) not null, asn varchar(255), city varchar(255), country varchar(255), countryCode varchar(255), isp varchar(255), lat decimal(19,2), lon decimal(19,2), org varchar(255), region varchar(255), regionName varchar(255), status varchar(255), timezone varchar(255), zip varchar(255), primary key (querystring))
+DEBUG [2021-11-28 02:11:03,840] org.hibernate.SQL: /* findByIp */ SELECT * from "ipmetadata" where "querystring" =  ?
+DEBUG [2021-11-28 02:11:03,856] org.hibernate.SQL: /* findByIp */ SELECT * from "ipmetadata" where "querystring" =  ?
+INFO  [2021-11-28 02:21:08,535] com.hilton.demo.start.resources.IPMetaDataResource: Looking for IP meta data
